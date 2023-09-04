@@ -1,31 +1,13 @@
-name: Deploy to GitHub Pages
-
-on:
-  push:
-    branches:
-      - main # Укажите имя вашей основной ветки
-
+name: Build Vue
+on: [push]
 jobs:
-  deploy:
+  build_vue:
     runs-on: ubuntu-latest
-
+    name: Build Vue
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Vue App to Github Pages
+        uses: StruggleYang/VuePagesAction@2.0.0
         with:
-          node-version: 14 # Версия Node.js, которую вы используете
-
-      - name: Install Dependencies
-        run: npm install # Или используйте yarn, если предпочитаете
-
-      - name: Build
-        run: npm run build # Или используйте yarn, если предпочитаете
-
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build # Путь к папке с сборкой вашего приложения
+          useyarn: false # if project is npm build ,set false
